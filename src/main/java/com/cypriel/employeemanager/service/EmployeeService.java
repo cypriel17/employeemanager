@@ -3,6 +3,7 @@ package com.cypriel.employeemanager.service;
 import com.cypriel.employeemanager.exception.UserNotFoundException;
 import com.cypriel.employeemanager.model.Employee;
 import com.cypriel.employeemanager.repository.EmployeeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class EmployeeService {
                 .orElseThrow(()-> new UserNotFoundException("User by id " + id + " is not found!"));
     }
 
+    @Transactional
     public void deleteEmployee(Long id){
         employeeRepository.deleteEmployeeById(id);
     }
