@@ -50,7 +50,4 @@ public class EmployeeController {
         return new ResponseEntity<>("User successfully deleted", HttpStatus.OK);
     }
 
-
-
-
 }
