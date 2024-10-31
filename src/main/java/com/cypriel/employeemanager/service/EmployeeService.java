@@ -31,6 +31,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    @Transactional
     public Employee updateEmployee(Employee updateEmployee){
         return employeeRepository.save(updateEmployee);
     }
