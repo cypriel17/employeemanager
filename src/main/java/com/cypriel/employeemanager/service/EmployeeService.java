@@ -4,6 +4,8 @@ import com.cypriel.employeemanager.exception.UserNotFoundException;
 import com.cypriel.employeemanager.model.Employee;
 import com.cypriel.employeemanager.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,12 @@ import java.util.UUID;
 
 @Service
 public class EmployeeService {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
-	private final EmployeeRepo employeeRepo;
+	private final EmployeeRepository employeeRepo;
 
 	@Autowired
-	public EmployeeService(EmployeeRepo employeeRepo) {
+	public EmployeeService(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 	}
 
