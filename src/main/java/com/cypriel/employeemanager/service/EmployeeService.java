@@ -14,35 +14,34 @@ import java.util.UUID;
 
 @Service
 public class EmployeeService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
+	private final EmployeeRepo employeeRepo;
 
-    @Autowired
-    private final EmployeeRepository employeeRepository;
+	@Autowired
+	public EmployeeService(EmployeeRepo employeeRepo) {
+		this.employeeRepo = employeeRepo;
+	}
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+	public Employee AddEmployee(Employee employee) {
+		employee.setEmployeeCode(UUID.randomUUID().toString());
+		LOGGER.info("Created user with code: {}", employee.getEmployeeCode());
+		return employeeRepo.save(employee);
+	}
 
-    public Employee addEmployee(Employee employee){
-        employee.setEmployeeCode(UUID.randomUUID().toString());
-        return employeeRepository.save(employee);
-    }
+	public List<Employee> findAllEmployees() {
+		return employeeRepo.findAll();
+	}
 
-    public List<Employee> findAllEmployees(){
-        return employeeRepository.findAll();
-    }
+	public Employee updateEmployee(Employee employee) {
+		return employeeRepo.save(employee);
+	}
 
-    @Transactional
-    public Employee updateEmployee(Employee updateEmployee){
-        return employeeRepository.save(updateEmployee);
-    }
+	public void deleteEmployee(Long id) {
+		employeeRepo.deleteById(id);
+	}
 
-    public Employee findEmployee(Long id) {
-        return employeeRepository.findEmployeeById(id)
-                .orElseThrow(()-> new UserNotFoundException("User by id " + id + " is not found!"));
-    }
-
-    @Transactional
-    public void deleteEmployee(Long id){
-        employeeRepository.deleteEmployeeById(id);
-    }
+	public Employee findEmployeeById(Long id) {
+		return employeeRepo.findEmployeeById(id)
+				.orElseThrow(() -> new UserNotFoundException("User by ID " + id + " was not found"));
+	}
 }
